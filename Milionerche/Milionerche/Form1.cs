@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Milionerche
 {
@@ -16,6 +17,8 @@ namespace Milionerche
         string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\viole\\AppData\\Local\\Microsoft\\Microsoft SQL Server Local DB\\Instances\\MSSQLLocalDB\\QuestionsGame.mdf\";Integrated Security=True;Connect Timeout=30";
         SqlConnection conn;
         SqlCommand command;
+        SqlDataReader reader;
+        int score=0;
         public Form1()
         {
             InitializeComponent();
@@ -28,49 +31,200 @@ namespace Milionerche
             MessageBox.Show("Open!");
             string query = "Select * from QuestionsGame";
             command = new SqlCommand(query, conn);
-            SqlDataReader reader = command.ExecuteReader();
+            reader = command.ExecuteReader();
             reader.Read();
-            string correct = reader[6].ToString();
-            lblQuestion.Text = reader[1].ToString();
-            Answear1.Text = reader[2].ToString();
-            Answear2.Text = reader[3].ToString();
-            Answear3.Text = reader[4].ToString();
-            Answear4.Text = reader[5].ToString();
+           
+            LoadRecord();
+        }
+        public void LoadRecord()
+        {
+            lblAnswear1.BackColor = SystemColors.Window;
+            lblAnswear1.ForeColor = Color.Blue;
+            lblAnswear2.BackColor = SystemColors.Window;
+            lblAnswear2.ForeColor = Color.Blue;
+            lblAnswear3.BackColor = SystemColors.Window;
+            lblAnswear3.ForeColor = Color.Blue;
+            lblAnswear4.BackColor = SystemColors.Window;
+            lblAnswear4.ForeColor = Color.Blue;
 
-            //if (Answear2.Checked==true&& Answear2.Text!= correct)
-            //{
-            //    Answear2.BackColor = Color.Red;
-            //    MessageBox.Show("wrong");
-            //}
-            //else if(Answear2.Checked == true && Answear2.Text == correct)
-            //{
-            //    Answear2.BackColor = Color.Green;
-            //}
-            //if (Answear1.Checked == true && Answear1.Text != correct)
-            //{
-            //    Answear1.BackColor = Color.Red;
-            //}
-            //else if (Answear1.Checked == true && Answear1.Text == correct)
-            //{
-            //    Answear1.BackColor = Color.Green;
-            //}
-            //if (Answear3.Checked == true && Answear3.Text != correct)
-            //{
-            //    Answear3.BackColor = Color.Red;
-            //}
-            //else if (Answear3.Checked == true && Answear3.Text == correct)
-            //{
-            //    Answear3.BackColor = Color.Green;
-            //}
-            //if (Answear4.Checked == true && Answear4.Text != correct)
-            //{
-            //    Answear4.BackColor = Color.Red;
-            //}
-            //else if (Answear4.Checked == true && Answear4.Text == correct)
-            //{
-            //    Answear4.BackColor = Color.Green;
-            //}
+            if (reader.Read())
+            {
+                lblQuestion.Text = reader[1].ToString();
+                lblAnswear1.Text = reader[2].ToString();
+                lblAnswear2.Text = reader[3].ToString();
+                lblAnswear3.Text = reader[4].ToString();
+                lblAnswear4.Text = reader[5].ToString();
+                //for (int i = 0; i < listBox1.Items.Count; i++)
+                //{
+                //    listBox1.Items[i] = listBox1.BackColor = Color.Orange;
 
+                //    //listBox1.BackColor = Color.Orange;
+                //}
+            }
+            else
+            {
+                MessageBox.Show($"End of the game! You earn {score} ");
+                reader.Close();
+            }
+        }
+
+        //public void ChangeColor()
+        //{
+        //}
+
+        bool click = false;
+        private void lblAnswear1_Click(object sender, EventArgs e)
+        {
+           
+            if (lblAnswear1.Text == reader[6].ToString())
+            {
+                click = true;
+                lblAnswear1.BackColor = Color.Green;
+                score += 100;
+
+                LoadRecord();
+            }
+            else
+            {
+                lblAnswear1.BackColor = Color.Red;
+                MessageBox.Show($"You earn {score+100}$ ");
+                reader.Close();
+            }
+        }
+
+        private void lblAnswear2_Click(object sender, EventArgs e)
+        {
+            if (lblAnswear2.Text == reader[6].ToString())
+            {
+
+                click = true;
+                lblAnswear2.BackColor = Color.Green;
+                score += 100;
+                lblAnswear1.BackColor = SystemColors.Window;
+                LoadRecord();
+
+            }
+            else
+            {
+                lblAnswear2.BackColor = Color.Red;
+                MessageBox.Show($"You earn {score+100}$ ");
+                reader.Close();
+            }
+        }
+
+        private void lblAnswear3_Click(object sender, EventArgs e)
+        {
+            
+            if (lblAnswear3.Text == reader[6].ToString())
+            {
+
+                click = true;
+                lblAnswear3.BackColor = Color.Green;
+                score += 100;
+                LoadRecord();
+            }
+            else
+            {
+                lblAnswear3.BackColor = Color.Red;
+                MessageBox.Show($"You earn {score}$ ");
+                reader.Close();
+            }
+        }
+
+        private void lblAnswear4_Click(object sender, EventArgs e)
+        {
+         
+            if (lblAnswear4.Text == reader[6].ToString())
+            {
+
+                click = true;
+                lblAnswear4.BackColor = Color.Green;
+                score += 100;
+                LoadRecord();
+            }
+            else
+            {
+                lblAnswear4.BackColor = Color.Red;
+                MessageBox.Show($"You earn {score}$ ");
+                reader.Close();
+            }
+        }
+
+        private void button50_Click(object sender, EventArgs e)
+        {
+            if (lblAnswear1.Text != reader[6].ToString())
+            {
+                lblAnswear1.Visible = false;
+            }
+            else
+            {
+                lblAnswear1.Visible = true;
+            }
+            if (lblAnswear2.Text != reader[6].ToString())
+            {
+                lblAnswear2.Visible = false;
+            }
+            else
+            {
+                lblAnswear2.Visible = true;
+            }
+            if (lblAnswear4.Text != reader[6].ToString())
+            {
+                lblAnswear4.Visible = false;
+            }
+            else
+            {
+                lblAnswear4.Visible = true;
+            }
+            button50.Enabled = false;
+            while (click==true)
+            {
+                lblAnswear1.Visible = true;
+                lblAnswear2.Visible = true;
+                lblAnswear3.Visible = true;
+                lblAnswear4.Visible = true;
+            }
+           
+        }
+
+        private void btbFriend_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Samon said that the correct answear is:{reader[6].ToString()} ");
+            btnAudience.Enabled = false;
+        }
+
+        private void btnAudience_Click(object sender, EventArgs e)
+        {
+            if (lblAnswear1.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear1.Text}" +
+                    $"50% => {lblAnswear2.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+            }
+            if (lblAnswear2.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear2.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+            }
+            if (lblAnswear3.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear3.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear2.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+            }
+            if (lblAnswear4.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear4.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear2.Text}");
+            }
+            btnAudience.Enabled = false;
         }
     }
 }
+
