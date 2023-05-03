@@ -14,7 +14,7 @@ namespace Milionerche
 {
     public partial class Form1 : Form
     {
-        string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\viole\\AppData\\Local\\Microsoft\\Microsoft SQL Server Local DB\\Instances\\MSSQLLocalDB\\QuestionsGame.mdf\";Integrated Security=True;Connect Timeout=30";
+        string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\STUDENTS-STEM-9\\AppData\\Local\\Microsoft\\Microsoft SQL Server Local DB\\Instances\\MSSQLLocalDB\\QuestionsForGame.mdf\";Integrated Security=True;Connect Timeout=30";
         SqlConnection conn;
         SqlCommand command;
         SqlDataReader reader;
@@ -36,6 +36,7 @@ namespace Milionerche
            
             LoadRecord();
         }
+        
         public void LoadRecord()
         {
             lblAnswear1.BackColor = SystemColors.Window;
@@ -54,12 +55,14 @@ namespace Milionerche
                 lblAnswear2.Text = reader[3].ToString();
                 lblAnswear3.Text = reader[4].ToString();
                 lblAnswear4.Text = reader[5].ToString();
-                //for (int i = 0; i < listBox1.Items.Count; i++)
-                //{
-                //    listBox1.Items[i] = listBox1.BackColor = Color.Orange;
-
-                //    //listBox1.BackColor = Color.Orange;
-                //}
+                label1.BackColor = Color.OrangeRed;
+                label2.BackColor = Color.OrangeRed;
+                label3.BackColor = Color.OrangeRed;
+                label4.BackColor = Color.OrangeRed;
+                label5.BackColor = Color.OrangeRed;
+                label6.BackColor = Color.OrangeRed;
+                label7.BackColor = Color.OrangeRed;
+                label8.BackColor = Color.OrangeRed;
             }
             else
             {
@@ -67,10 +70,6 @@ namespace Milionerche
                 reader.Close();
             }
         }
-
-        //public void ChangeColor()
-        //{
-        //}
 
         bool click = false;
         private void lblAnswear1_Click(object sender, EventArgs e)
@@ -90,6 +89,9 @@ namespace Milionerche
                 MessageBox.Show($"You earn {score+100}$ ");
                 reader.Close();
             }
+            lblAnswear2.Visible = true;
+            lblAnswear4.Visible = true;
+            lblAnswear3.Visible = true;
         }
 
         private void lblAnswear2_Click(object sender, EventArgs e)
@@ -110,6 +112,9 @@ namespace Milionerche
                 MessageBox.Show($"You earn {score+100}$ ");
                 reader.Close();
             }
+            lblAnswear1.Visible = true;
+            lblAnswear3.Visible = true;
+            lblAnswear4.Visible = true;
         }
 
         private void lblAnswear3_Click(object sender, EventArgs e)
@@ -129,6 +134,9 @@ namespace Milionerche
                 MessageBox.Show($"You earn {score}$ ");
                 reader.Close();
             }
+            lblAnswear2.Visible = true;
+            lblAnswear4.Visible = true;
+            lblAnswear1.Visible = true;
         }
 
         private void lblAnswear4_Click(object sender, EventArgs e)
@@ -148,9 +156,69 @@ namespace Milionerche
                 MessageBox.Show($"You earn {score}$ ");
                 reader.Close();
             }
+            lblAnswear2.Visible = true;
+            lblAnswear3.Visible = true;
+            lblAnswear1.Visible = true;
         }
 
         private void button50_Click(object sender, EventArgs e)
+        {
+          
+            //button50.Enabled = false;
+            //while (click==true)
+            //{
+            //    lblAnswear1.Visible = true;
+            //    lblAnswear2.Visible = true;
+            //    lblAnswear3.Visible = true;
+            //    lblAnswear4.Visible = true;
+            //}
+           
+        }
+
+        private void btbFriend_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Samon said that the correct answear is:{reader[6].ToString()} ");
+            btbFriend.Enabled = false;
+        }
+
+        private void btnAudience_Click(object sender, EventArgs e)
+        {
+            if (lblAnswear1.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear1.Text}" +
+                    $"50% => {lblAnswear2.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+                btnAudience.Enabled = false;
+            }
+            if (lblAnswear2.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear2.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+                btnAudience.Enabled = false;
+            }
+            if (lblAnswear3.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear3.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear2.Text}" +
+                    $"20% => {lblAnswear4.Text}");
+                btnAudience.Enabled = false;
+            }
+            if (lblAnswear4.Text == reader[6].ToString())
+            {
+                MessageBox.Show($"80% => {lblAnswear4.Text}" +
+                    $"50% => {lblAnswear1.Text}" +
+                    $"40% => {lblAnswear3.Text}" +
+                    $"20% => {lblAnswear2.Text}");
+                btnAudience.Enabled = false;
+            }
+          
+        }
+
+        private void button50_Click_1(object sender, EventArgs e)
         {
             if (lblAnswear1.Text != reader[6].ToString())
             {
@@ -176,54 +244,8 @@ namespace Milionerche
             {
                 lblAnswear4.Visible = true;
             }
-            button50.Enabled = false;
-            while (click==true)
-            {
-                lblAnswear1.Visible = true;
-                lblAnswear2.Visible = true;
-                lblAnswear3.Visible = true;
-                lblAnswear4.Visible = true;
-            }
-           
-        }
-
-        private void btbFriend_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"Samon said that the correct answear is:{reader[6].ToString()} ");
-            btnAudience.Enabled = false;
-        }
-
-        private void btnAudience_Click(object sender, EventArgs e)
-        {
-            if (lblAnswear1.Text == reader[6].ToString())
-            {
-                MessageBox.Show($"80% => {lblAnswear1.Text}" +
-                    $"50% => {lblAnswear2.Text}" +
-                    $"40% => {lblAnswear3.Text}" +
-                    $"20% => {lblAnswear4.Text}");
-            }
-            if (lblAnswear2.Text == reader[6].ToString())
-            {
-                MessageBox.Show($"80% => {lblAnswear2.Text}" +
-                    $"50% => {lblAnswear1.Text}" +
-                    $"40% => {lblAnswear3.Text}" +
-                    $"20% => {lblAnswear4.Text}");
-            }
-            if (lblAnswear3.Text == reader[6].ToString())
-            {
-                MessageBox.Show($"80% => {lblAnswear3.Text}" +
-                    $"50% => {lblAnswear1.Text}" +
-                    $"40% => {lblAnswear2.Text}" +
-                    $"20% => {lblAnswear4.Text}");
-            }
-            if (lblAnswear4.Text == reader[6].ToString())
-            {
-                MessageBox.Show($"80% => {lblAnswear4.Text}" +
-                    $"50% => {lblAnswear1.Text}" +
-                    $"40% => {lblAnswear3.Text}" +
-                    $"20% => {lblAnswear2.Text}");
-            }
-            btnAudience.Enabled = false;
+          button50.Enabled = false;
+            
         }
     }
 }
